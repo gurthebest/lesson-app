@@ -28,11 +28,7 @@
                 <p>Number of spaces: {{item.availableInventory - cartItemCount}}</p>
 
 
-
-
-
-            
-
+                <button @click='addToCart(item)' v-bind:disabled='!canAddToCart(item)'>Add to cart</button>
 
             </div>
 
