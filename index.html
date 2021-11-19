@@ -19,13 +19,15 @@
 
     <div id="app">
 
-        <button @click='showCheckout' v-show='cartItemCount'>
-
-            {{ cartItemCount }}
-
-            <span class="fas fa-cart-plus"></span> Checkout
-        </button>
+    
         <div v-if='showLesson'>
+
+            <button @click='showCheckout' v-show='cartItemCount' >
+
+                {{ cartItemCount }}
+    
+                <span class="fas fa-cart-plus"></span> Checkout
+            </button>
 
             <div v-for="(bb,aa) in choice">
 
@@ -51,12 +53,19 @@
                 <img v-bind:src="item.image" height="150">
                 <p>Location: {{item.location}}</p>
                 <p>Price: {{item.price}}</p>
-                <p>Number of spaces: {{item.availableInventory - cartItemCount}}</p>
+                <p>Number of spaces: {{item.availableInventory }}</p>
+                
+                <div>
+                    <span v-for='n in item.rating'>★</span>
+                    <span v-for='n in 5-item.rating'>☆</span>
+    
+                </div>
+                
 
-
-
-                <button @click='addToCart(item)' v-bind:disabled='!canAddToCart(item)'>Add to cart</button>
-
+                <button v-if="item.availableInventory>0" @click='addToCart(item)'>Add to cart</button>
+                <button v-else  disabled='disabled' >Add to cart</button>
+               
+                    
 
             </div>
 
@@ -67,25 +76,35 @@
         <div v-else>
             <h2>Checkout</h2>
  
+            <button @click='showCheckout'  >
 
-            <div v-for="item in cart">
+                {{ cartItemCount }}
+    
+                <span class="fas fa-cart-plus"></span> Checkout
+            </button>
+            
 
+                <div v-for="item in cart" :key = "item.id">
 
-                <h2 v-text="item.id"></h2>
-                <img v-bind:src="item.image" height="150">
-                <p>Location: {{item.location}}</p>
-                <p>Price: {{item.price}}</p>
-
-
-                <div v-for= "(cart, item) in cart" :key="item.id">
+                    <h2 v-text="item.id"></h2>
+                    <img v-bind:src="item.image" height="150">
+                    <p>Location: {{item.location}}</p>
+                    <p>Price: {{item.price}}</p>
 
                     <button @click='removeItem(item)'>Delete from cart</button>
-
+    
                 </div>
+               
+
+                
+
+                   
+
+            
                 
 
 
-            </div>
+            
 
 
             <p>
@@ -154,14 +173,18 @@
                 
                 removeItem(item) {
                     {
+
+                        
                         this.cart.splice(item, 1);
+                        ++item.availableInventory
                         
                     }
 
                 },
 
 
-                showCheckout() {
+                showCheckout() 
+                {
                     this.showLesson = this.showLesson ? false : true;
 
 
@@ -176,15 +199,14 @@
 
                 },
 
+
                 addToCart(item) {
 
                     this.cart.push(item);
+                    --item.availableInventory
                 },
-                canAddToCart(item) {
 
-                    return item.availableInventory > this.cartCount(item.id);
 
-                },
                 cartCount(id) {
                     let count = 0;
                     for (let i = 0; i < this.cart.length; i++) {
