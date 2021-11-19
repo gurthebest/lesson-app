@@ -7,7 +7,7 @@
             "price":  199 ,
             "image": "img/math.png",
             "availableInventory": 5,
-    
+            "rating" :2
         },
         {
             "id": 202,
@@ -16,7 +16,7 @@
             "price": 299,
             "image": "img/eng.png",
             "availableInventory": 5,
-    
+            "rating" :3
         },
         {
             "id": 203,
@@ -25,7 +25,7 @@
             "price": 199, 
             "image": "img/art.png",
             "availableInventory": 5,
-    
+            "rating" :5
         },
         {
             "id": 204,
@@ -34,7 +34,7 @@
             "price": 299,
             "image": "img/music.png",
             "availableInventory": 5,
-    
+            "rating" :5
         },
         {
             "id": 205,
@@ -43,6 +43,7 @@
             "price": 499,
             "image": "img/physicaleducation.png",
             "availableInventory": 5,
+            "rating" :5
     
         },
         {
@@ -52,7 +53,7 @@
             "price": 99.00,
             "image": "img/science.png",
             "availableInventory": 5,
-    
+            "rating" :5
         },
         {
             "id": 207,
@@ -61,7 +62,7 @@
             "price": 699.00,
             "image": "img/spanish.png",
             "availableInventory": 5,
-    
+            "rating" :3
         },
         {
             "id": 208,
@@ -70,7 +71,7 @@
             "price": 89.00,
             "image": "img/french.png",
             "availableInventory": 5,
-    
+            "rating" :1
         },
         {
             "id": 209,
@@ -79,7 +80,7 @@
             "price": 199.00,
             "image": "img/engadd.png",
             "availableInventory": 5,
-    
+            "rating" :2
         },
         {
             "id": 210,
@@ -88,6 +89,6 @@
             "price": 199.00,
             "image": "img/italy.png",
             "availableInventory": 5,
-    
+            "rating" :4
         },
     ]
