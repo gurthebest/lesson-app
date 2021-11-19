@@ -1,4 +1,7 @@
-
+<!-- 
+    Group 1
+    https://github.com/YuriBilyarov/YuriBilyarov.github.io 
+-->
 <!DOCTYPE html>
 <html>
 
@@ -6,7 +9,7 @@
 
     <title>After School Club</title>
 
-    
+    <!-- scripts and imports -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="lessons.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -18,8 +21,33 @@
 
     <div id="app">
 
-    
-        <div v-for = "item in lessons">
+        <button @click='showCheckout' v-show='cartItemCount'>
+
+            {{ cartItemCount }}
+
+            <span class="fas fa-cart-plus"></span> Checkout
+        </button>
+        <div v-if='showLesson'>
+            <!-- the code for the product page -->
+            <div v-for="(bb,aa) in choice">
+
+                <input type="radio" id="bb" name="bb" value="aa" @click="sorting(bb)">
+                <label for="aa">{{aa}}</label>
+
+
+            </div>
+            <div>
+
+                <input type="radio" id="order" name="order" value="order" @click="selectorder('true')">
+                <label for="order">Ascending/Descending</label>
+
+
+            </div>
+
+
+
+            <div v-for="item in lessons">
+
 
                 <h2 v-text="item.subject"></h2>
                 <img v-bind:src="item.image" height="150">
@@ -28,17 +56,44 @@
                 <p>Number of spaces: {{item.availableInventory - cartItemCount}}</p>
 
 
+
                 <button @click='addToCart(item)' v-bind:disabled='!canAddToCart(item)'>Add to cart</button>
+
 
             </div>
 
+
+
+
         </div>
-        
+        <div v-else>
+            <h2>Checkout</h2>
+ 
+
+            
+            <p>
+                <strong>First Name:</strong>
+                <!-- This input field is bound to 'firstName' in the 'order' object -->
+                <input v-model="submitorder.firstName" />
+            </p>
+            <p>
+                <strong>Last Name:</strong>
+                <!-- This input field is bound to 'lastName' in the 'order' object -->
+                <input v-model="submitorder.lastName" />
+            </p>
+            <h2>Order Information</h2>
+            <p>First Name: {{submitorder.firstName}}</p>
+            <p>Last Name: {{submitorder.lastName}}</p>
+
+            <button v-on:click="submitForm">Place
+                Order</button>
+
+        </div>
 
 
 
 
-     
+        <!-- product information -->
 
     </div>
 
@@ -49,9 +104,24 @@
 
             el: '#app',
             data: {
-                
-  
- 
+                choice: {
+
+                    Price: 'price',
+                    Subject: 'subject',
+                    Location: 'location',
+                    Available: 'availableInventory'
+
+
+                },
+                submitorder: {
+
+                    firstName: '',
+                    lastName: '',
+
+                },
+                showLesson: true,
+
+                order: 'false',
 
 
 
@@ -66,6 +136,26 @@
                 // array to store items in shopping cart
             },
             methods: {
+                
+         
+
+       
+
+
+                showCheckout() {
+                    this.showLesson = this.showLesson ? false : true;
+
+
+                },
+                selectorder(order) {
+
+                    if (order === 'true') {
+
+                        return this.lessons.reverse()
+
+                    }
+
+                },
 
                 addToCart(item) {
 
@@ -86,8 +176,61 @@
                     return 0;
                 },
 
-                
-                
+                sorting(chosenvalue) {
+
+                    this.order = "false";
+
+                    if (chosenvalue === "price") {
+
+                        function compare(a, b) {
+
+                            if (a.price > b.price) return 1;
+                            if (a.price < b.price) return -1;
+
+                        }
+                        return this.lessons.sort(compare);
+
+                    }
+                    if (chosenvalue === "availableInventory") {
+
+                        function compare(a, b) {
+
+                            if (a.availableInventory > b.availableInventory) return 1;
+                            if (a.availableInventory < b.availableInventory) return -1;
+
+                        }
+                        return this.lessons.sort(compare);
+                    }
+                    if (chosenvalue === "location") {
+
+                        function compare(a, b) {
+
+                            if (a.location > b.location) return 1;
+                            if (a.location < b.location) return -1;
+
+                        }
+                        return this.lessons.sort(compare);
+
+                    }
+                    if (chosenvalue === "subject") {
+
+                        function compare(a, b) {
+
+                            if (a.subject > b.subject) return 1;
+                            if (a.subject < b.subject) return -1;
+
+                        }
+                        return this.lessons.sort(compare);
+
+                    }
+                },
+                submitForm() {
+
+                    alert('Order submitted!')
+
+
+                },
+
 
 
             },
