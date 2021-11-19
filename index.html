@@ -1,7 +1,5 @@
-<!-- 
-    Group 1
-    https://github.com/YuriBilyarov/YuriBilyarov.github.io 
--->
+
+
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +7,7 @@
 
     <title>After School Club</title>
 
-    <!-- scripts and imports -->
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="lessons.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -28,7 +26,7 @@
             <span class="fas fa-cart-plus"></span> Checkout
         </button>
         <div v-if='showLesson'>
-            <!-- the code for the product page -->
+
             <div v-for="(bb,aa) in choice">
 
                 <input type="radio" id="bb" name="bb" value="aa" @click="sorting(bb)">
@@ -70,15 +68,34 @@
             <h2>Checkout</h2>
  
 
-            
+            <div v-for="item in cart">
+
+
+                <h2 v-text="item.id"></h2>
+                <img v-bind:src="item.image" height="150">
+                <p>Location: {{item.location}}</p>
+                <p>Price: {{item.price}}</p>
+
+
+                <div v-for= "(cart, item) in cart" :key="item.id">
+
+                    <button @click='removeItem(item)'>Delete from cart</button>
+
+                </div>
+                
+
+
+            </div>
+
+
             <p>
                 <strong>First Name:</strong>
-                <!-- This input field is bound to 'firstName' in the 'order' object -->
+
                 <input v-model="submitorder.firstName" />
             </p>
             <p>
                 <strong>Last Name:</strong>
-                <!-- This input field is bound to 'lastName' in the 'order' object -->
+
                 <input v-model="submitorder.lastName" />
             </p>
             <h2>Order Information</h2>
@@ -93,7 +110,6 @@
 
 
 
-        <!-- product information -->
 
     </div>
 
@@ -133,13 +149,16 @@
                     cart: [],
        
 
-                // array to store items in shopping cart
             },
             methods: {
                 
-         
+                removeItem(item) {
+                    {
+                        this.cart.splice(item, 1);
+                        
+                    }
 
-       
+                },
 
 
                 showCheckout() {
