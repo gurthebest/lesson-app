@@ -7,7 +7,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="lessons.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 </head>
@@ -20,12 +19,12 @@
 
         <div v-if='showLesson'>
 
-           
 
-                <input type="text" v-model="userInput"  placeholder="Search">
 
-             
-            
+            <input type="text" v-model="userInput" placeholder="Search">
+
+
+
             <button @click='showCheckout' v-show='cartItemCount'>
 
                 {{ cartItemCount }}
@@ -106,9 +105,9 @@
                 <input v-model="submitorder.firstName" />
             </p>
             <p>
-                <strong>Last Name:</strong>
+                <strong>Phone Number:</strong>
 
-                <input v-model="submitorder.lastName" />
+                <input v-model="submitorder.phoneNumber" />
             </p>
             <h2>Order Information</h2>
             <p>First Name: {{submitorder.firstName}}</p>
@@ -147,14 +146,14 @@
                     phoneNumber: '',
 
                 },
-                userInput:'',
+                userInput: '',
                 showLesson: true,
 
                 order: 'false',
 
 
 
-                lessons: lessons,
+                lessons: [],
 
                 cart: [],
 
@@ -179,6 +178,7 @@
 
 
                 },
+
                 selectorder(order) {
 
                     if (order === 'true') {
@@ -188,7 +188,7 @@
                     }
 
                 },
-                
+
 
 
                 addToCart(item) {
@@ -270,20 +270,43 @@
 
 
             computed: {
+
                 cartItemCount: function () {
 
                     return this.cart.length;
                 },
                 search() {
-                   
+
                     return this.lessons.filter(item => item.subject.toUpperCase().includes(this.userInput.toUpperCase()) || item.location.toUpperCase().includes(this.userInput.toUpperCase()));
-                
+
+                },
+                getlessons() {
+                    fetch('https://cst31452022.herokuapp.com/collection/lessons').then(
+                    function (res) {
+                        res.json().then(
+                            function (lessons) {
+                                app.lessons = lessons;
+                            });
+                    })
                 },
 
 
 
-            }
 
+
+            },
+
+            // created: {
+            //     getlessons (){
+            //     fetch('http://localhost:3000/collection/lessons').then(
+            //         function(response) {
+            //             response.json().then(
+            //                 function(json) {
+            //                     store.lessons = json;
+            //                 });
+            //         })
+            //     }
+            // }
 
 
         })
