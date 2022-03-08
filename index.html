@@ -231,7 +231,7 @@
                             var tmpLessonID = this.cartLessonsID[i].lessonID
                             console.log(tmpLessonID + 'This is the TEMPORARY LESSONS ID ')
 
-                            fetch('https://cst31452022.herokuapp.com/collection/lessons/'+lessonID, {
+                            fetch('https://cst31452022.herokuapp.com/update/lessons/'+lessonID, {
                                 method: 'PUT',
                                 headers: {
                                     'Accept': 'application/json',
